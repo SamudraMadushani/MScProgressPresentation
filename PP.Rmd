@@ -153,7 +153,7 @@ Processed_Data(processed_data_path)
 
 
 ```{r figurechapter08, echo=FALSE, fig.align = 'center',message=FALSE, out.width = '25%', out.height = '25%',fig.height=6, fig.width=6}
-knitr::include_graphics("Figures/F8.JPG")
+knitr::include_graphics("Figures/F8M.JPG")
 ```
 
 ```{r}
