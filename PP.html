@@ -113,48 +113,6 @@ Processed_Data&lt;-function(processed_data_path)
 
 ---
 
-# Reading Excel files
-
-
-```r
-processed_data_path &lt;- setwd(here::here("dataraw"))
-Processed_Data(processed_data_path)
-```
-
-```
-## # A tibble: 6,734 x 15
-##       V1  Year  Week StartDate  EndDate    Division    Dengue Dysentery
-##    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;date&gt;     &lt;date&gt;     &lt;chr&gt;        &lt;int&gt;     &lt;int&gt;
-##  1     1  2006    52 2006-12-23 2006-12-29 Colombo         71         2
-##  2     2  2006    52 2006-12-23 2006-12-29 Gampaha         12         0
-##  3     3  2006    52 2006-12-23 2006-12-29 Kalutara        12         6
-##  4     4  2006    52 2006-12-23 2006-12-29 Kandy           20         5
-##  5     5  2006    52 2006-12-23 2006-12-29 Matale           4         0
-##  6     6  2006    52 2006-12-23 2006-12-29 NuwaraEliya      1         1
-##  7     7  2006    52 2006-12-23 2006-12-29 Galle            1         2
-##  8     8  2006    52 2006-12-23 2006-12-29 Hambanthota      1         1
-##  9     9  2006    52 2006-12-23 2006-12-29 Matara          11         3
-## 10    10  2006    52 2006-12-23 2006-12-29 Jaffna           0         0
-## # ... with 6,724 more rows, and 7 more variables: Encephalitis &lt;int&gt;,
-## #   Enteric Fever &lt;int&gt;, Food Poisioning &lt;int&gt;, Leptospirosis &lt;int&gt;,
-## #   Typhus Fever &lt;int&gt;, Viral Hepatistis &lt;int&gt;, Human Rabies &lt;int&gt;
-```
-
----
-
-# DISC (DISease Counts) Package
-
-
-&lt;img src="Figures/F8M.JPG" width="25%" height="25%" style="display: block; margin: auto;" /&gt;
-
-
-```r
-#install.packages("remotes")
-#remotes::install_github("SMART-Research/DISC")
-```
-
----
-
 # DISC (DISease Counts) Package
 
 
@@ -176,6 +134,19 @@ Processed_Data(processed_data_path)
 ## #   Enteric Fever &lt;int&gt;, Food Poisioning &lt;int&gt;, Leptospirosis &lt;int&gt;,
 ## #   Typhus Fever &lt;int&gt;, Viral Hepatistis &lt;int&gt;, Human Rabies &lt;int&gt;,
 ## #   Chickenpox &lt;int&gt;, Meningitis &lt;int&gt;, Leishmaniasis &lt;dbl&gt;
+```
+
+---
+
+# DISC (DISease Counts) Package
+
+
+&lt;img src="Figures/F8M.JPG" width="25%" height="25%" style="display: block; margin: auto;" /&gt;
+
+
+```r
+#install.packages("remotes")
+#remotes::install_github("SMART-Research/DISC")
 ```
 
 ---
@@ -250,11 +221,11 @@ class: inverse center middle
 ---
 # Time domain visualization-Districts
 
-&lt;img src="PP_files/figure-html/unnamed-chunk-9-1.png" width="100%" height="100%" /&gt;
+&lt;img src="PP_files/figure-html/unnamed-chunk-8-1.png" width="100%" height="100%" /&gt;
 
 ---
 
-# Feature based visualization
+# Feature-based visualization
 
 &lt;img src="Figures/FB1.JPG" width="100%" height="80%" style="display: block; margin: auto;" /&gt;
 
@@ -345,7 +316,7 @@ Dengue_features
 
 ---
 
-# Feature based visualization
+# Feature-based visualization
 
 &lt;img src="Figures/FB3.JPG" width="80%" height="10%" style="display: block; margin: auto;" /&gt;
 
@@ -426,22 +397,22 @@ pcs
 
 ---
 
-# Feature based visualization 
+# Feature-based visualization 
+
+&lt;img src="PP_files/figure-html/unnamed-chunk-15-1.png" width="100%" height="100%" /&gt;
+
+
+---
+
+# Feature-based visualization 
 
 &lt;img src="PP_files/figure-html/unnamed-chunk-16-1.png" width="100%" height="100%" /&gt;
 
-
 ---
 
-# Feature based visualization 
+# Feature-based visualization 
 
 &lt;img src="PP_files/figure-html/unnamed-chunk-17-1.png" width="100%" height="100%" /&gt;
-
----
-
-# Feature based visualization 
-
-&lt;img src="PP_files/figure-html/unnamed-chunk-18-1.png" width="100%" height="100%" /&gt;
 
 ---
 
@@ -548,15 +519,15 @@ pr&lt;-prcomp(Temporal_DengueFeatures[,-c(1,10,11,12,20)],scale=TRUE)
 
 ---
 
-# Feature based visualization
+# Feature-based visualization
 
-&lt;img src="PP_files/figure-html/unnamed-chunk-23-1.png" width="100%" height="100%" /&gt;
+&lt;img src="PP_files/figure-html/unnamed-chunk-22-1.png" width="100%" height="100%" /&gt;
 
 ---
 
-# Feature based visualization
+# Feature-based visualization
 
-&lt;img src="PP_files/figure-html/unnamed-chunk-24-1.png" width="100%" height="100%" /&gt;
+&lt;img src="PP_files/figure-html/unnamed-chunk-23-1.png" width="100%" height="100%" /&gt;
 
 ---
 

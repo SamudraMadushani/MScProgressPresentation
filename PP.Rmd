@@ -140,29 +140,6 @@ Processed_Data<-function(processed_data_path)
 
 ---
 
-# Reading Excel files
-
-```{r}
-processed_data_path <- setwd(here::here("dataraw"))
-Processed_Data(processed_data_path)
-```
-
----
-
-# DISC (DISease Counts) Package
-
-
-```{r figurechapter08, echo=FALSE, fig.align = 'center',message=FALSE, out.width = '25%', out.height = '25%',fig.height=6, fig.width=6}
-knitr::include_graphics("Figures/F8M.JPG")
-```
-
-```{r}
-#install.packages("remotes")
-#remotes::install_github("SMART-Research/DISC")
-```
-
----
-
 # DISC (DISease Counts) Package
 
 ```{r ,echo=FALSE}
@@ -180,6 +157,20 @@ load("H:/ProgressPresentation/ProgressPresentation/data/FinalData.Rda")
 
 D<-Data_Counts
 D
+```
+
+---
+
+# DISC (DISease Counts) Package
+
+
+```{r figurechapter08, echo=FALSE, fig.align = 'center',message=FALSE, out.width = '25%', out.height = '25%',fig.height=6, fig.width=6}
+knitr::include_graphics("Figures/F8M.JPG")
+```
+
+```{r}
+#install.packages("remotes")
+#remotes::install_github("SMART-Research/DISC")
 ```
 
 ---
