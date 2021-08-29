@@ -230,6 +230,36 @@ class: inverse center middle
 
 ---
 
+# Data Visualization
+
+*   Time domain visualization
+
+*   Feature based visualization
+
+*   Change point analysis
+
+---
+# Time domain visualization-Districts
+
+
+
+
+
+&lt;img src="Figures/DP.JPG" width="90%" height="80%" style="display: block; margin: auto;" /&gt;
+
+---
+# Time domain visualization-Districts
+
+&lt;img src="PP_files/figure-html/unnamed-chunk-9-1.png" width="100%" height="100%" /&gt;
+
+---
+
+# Feature based visualization
+
+&lt;img src="Figures/FB1.JPG" width="100%" height="80%" style="display: block; margin: auto;" /&gt;
+
+---
+
 # Time series features
 
 .left-column[
@@ -266,29 +296,38 @@ colnames(Dengue_features[,-c(1:2)])
 
 ---
 
-# Time series features-Districts
+# Spatial hierarchical structure
+
+&lt;img src="Figures/F10.JPG" width="80%" height="10%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Time series features
+
+
+
 
 
 ```r
-Dengue_features&lt;-DataDengueTEST %&gt;% features(Counts, feature_set(pkgs = "feasts"))
+Dengue_features&lt;-SHS_DataDengueTEST %&gt;% features(Counts, feature_set(pkgs = "feasts"))
 Dengue_features
 ```
 
 ```
-## # A tibble: 26 x 50
-##    Province    Districts   trend_strength seasonal_strength_y~ seasonal_peak_ye~
-##    &lt;chr&gt;       &lt;chr&gt;                &lt;dbl&gt;                &lt;dbl&gt;             &lt;dbl&gt;
-##  1 Central     Kandy                0.542                0.245                33
-##  2 Central     Matale               0.445                0.194                50
-##  3 Central     NuwaraEliya          0.351                0.203                33
-##  4 Eastern     Ampara               0.463                0.140                33
-##  5 Eastern     Batticaloa           0.508                0.272                 2
-##  6 Eastern     Kalmune              0.414                0.162                27
-##  7 Eastern     Trincomalee          0.377                0.209                 6
-##  8 NorthCentr~ Anuradhapu~          0.465                0.154                30
-##  9 NorthCentr~ Polonnaruwa          0.435                0.139                30
-## 10 NorthWeste~ Kurunagala           0.583                0.182                31
-## # ... with 16 more rows, and 45 more variables: seasonal_trough_year &lt;dbl&gt;,
+## # A tibble: 36 x 50
+##    Province     Districts   trend_strength seasonal_strength_~ seasonal_peak_ye~
+##    &lt;chr*&gt;       &lt;chr*&gt;               &lt;dbl&gt;               &lt;dbl&gt;             &lt;dbl&gt;
+##  1 Central      Kandy     ~          0.542               0.245                33
+##  2 Central      Matale    ~          0.445               0.194                50
+##  3 Central      NuwaraEliy~          0.351               0.203                33
+##  4 Central      &lt;aggregate~          0.529               0.230                31
+##  5 Eastern      Ampara    ~          0.463               0.140                33
+##  6 Eastern      Batticaloa~          0.508               0.272                 2
+##  7 Eastern      Kalmune   ~          0.414               0.162                27
+##  8 Eastern      Trincomale~          0.377               0.209                 6
+##  9 Eastern      &lt;aggregate~          0.548               0.264                 6
+## 10 NorthCentral Anuradhapu~          0.465               0.154                30
+## # ... with 26 more rows, and 45 more variables: seasonal_trough_year &lt;dbl&gt;,
 ## #   spikiness &lt;dbl&gt;, linearity &lt;dbl&gt;, curvature &lt;dbl&gt;, stl_e_acf1 &lt;dbl&gt;,
 ## #   stl_e_acf10 &lt;dbl&gt;, acf1 &lt;dbl&gt;, acf10 &lt;dbl&gt;, diff1_acf1 &lt;dbl&gt;,
 ## #   diff1_acf10 &lt;dbl&gt;, diff2_acf1 &lt;dbl&gt;, diff2_acf10 &lt;dbl&gt;, season_acf1 &lt;dbl&gt;,
@@ -306,54 +345,224 @@ Dengue_features
 
 ---
 
-# Excluded features from PCA - Districts
+# Feature based visualization
+
+&lt;img src="Figures/FB3.JPG" width="80%" height="10%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Excluded features from PCA
 
 
 ```
-## # A tibble: 26 x 6
+## # A tibble: 36 x 6
 ##    Province     Districts    pp_pvalue nsdiffs bp_pvalue lb_pvalue
-##    &lt;chr&gt;        &lt;chr&gt;            &lt;dbl&gt;   &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+##    &lt;chr*&gt;       &lt;chr*&gt;           &lt;dbl&gt;   &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt;
 ##  1 Central      Kandy             0.01       0         0         0
 ##  2 Central      Matale            0.01       0         0         0
 ##  3 Central      NuwaraEliya       0.01       0         0         0
-##  4 Eastern      Ampara            0.01       0         0         0
-##  5 Eastern      Batticaloa        0.01       0         0         0
-##  6 Eastern      Kalmune           0.01       0         0         0
-##  7 Eastern      Trincomalee       0.01       0         0         0
-##  8 NorthCentral Anuradhapura      0.01       0         0         0
-##  9 NorthCentral Polonnaruwa       0.01       0         0         0
-## 10 NorthWestern Kurunagala        0.01       0         0         0
-## # ... with 16 more rows
+##  4 Central      &lt;aggregated&gt;      0.01       0         0         0
+##  5 Eastern      Ampara            0.01       0         0         0
+##  6 Eastern      Batticaloa        0.01       0         0         0
+##  7 Eastern      Kalmune           0.01       0         0         0
+##  8 Eastern      Trincomalee       0.01       0         0         0
+##  9 Eastern      &lt;aggregated&gt;      0.01       0         0         0
+## 10 NorthCentral Anuradhapura      0.01       0         0         0
+## # ... with 26 more rows
 ```
 
 ---
 
-# Feature based visualization - Districts
+# Principal Component Analysis
 
-&lt;img src="PP_files/figure-html/unnamed-chunk-11-1.png" width="100%" height="100%" /&gt;
+
+
+
+```r
+pcs&lt;-Dengue_features%&gt;% dplyr::select(-c(1,2,31,33,35,37)) %&gt;% prcomp(scale = TRUE) %&gt;%
+  augment(Dengue_features)
+pcs
+```
+
+```
+## # A tibble: 36 x 87
+##    .rownames Province     Districts    trend_strength seasonal_strength_year
+##    &lt;chr&gt;     &lt;chr*&gt;       &lt;chr*&gt;                &lt;dbl&gt;                  &lt;dbl&gt;
+##  1 1         Central      Kandy                 0.542                  0.245
+##  2 2         Central      Matale                0.445                  0.194
+##  3 3         Central      NuwaraEliya           0.351                  0.203
+##  4 4         Central      &lt;aggregated&gt;          0.529                  0.230
+##  5 5         Eastern      Ampara                0.463                  0.140
+##  6 6         Eastern      Batticaloa            0.508                  0.272
+##  7 7         Eastern      Kalmune               0.414                  0.162
+##  8 8         Eastern      Trincomalee           0.377                  0.209
+##  9 9         Eastern      &lt;aggregated&gt;          0.548                  0.264
+## 10 10        NorthCentral Anuradhapura          0.465                  0.154
+## # ... with 26 more rows, and 82 more variables: seasonal_peak_year &lt;dbl&gt;,
+## #   seasonal_trough_year &lt;dbl&gt;, spikiness &lt;dbl&gt;, linearity &lt;dbl&gt;,
+## #   curvature &lt;dbl&gt;, stl_e_acf1 &lt;dbl&gt;, stl_e_acf10 &lt;dbl&gt;, acf1 &lt;dbl&gt;,
+## #   acf10 &lt;dbl&gt;, diff1_acf1 &lt;dbl&gt;, diff1_acf10 &lt;dbl&gt;, diff2_acf1 &lt;dbl&gt;,
+## #   diff2_acf10 &lt;dbl&gt;, season_acf1 &lt;dbl&gt;, pacf5 &lt;dbl&gt;, diff1_pacf5 &lt;dbl&gt;,
+## #   diff2_pacf5 &lt;dbl&gt;, season_pacf &lt;dbl&gt;, zero_run_mean &lt;dbl&gt;,
+## #   nonzero_squared_cv &lt;dbl&gt;, zero_start_prop &lt;dbl&gt;, zero_end_prop &lt;dbl&gt;,
+## #   lambda_guerrero &lt;dbl&gt;, kpss_stat &lt;dbl&gt;, kpss_pvalue &lt;dbl&gt;, pp_stat &lt;dbl&gt;,
+## #   pp_pvalue &lt;dbl&gt;, ndiffs &lt;int&gt;, nsdiffs &lt;int&gt;, bp_stat &lt;dbl&gt;,
+## #   bp_pvalue &lt;dbl&gt;, lb_stat &lt;dbl&gt;, lb_pvalue &lt;dbl&gt;, var_tiled_var &lt;dbl&gt;,
+## #   var_tiled_mean &lt;dbl&gt;, shift_level_max &lt;dbl&gt;, shift_level_index &lt;dbl&gt;,
+## #   shift_var_max &lt;dbl&gt;, shift_var_index &lt;dbl&gt;, shift_kl_max &lt;dbl&gt;,
+## #   shift_kl_index &lt;dbl&gt;, spectral_entropy &lt;dbl&gt;, n_crossing_points &lt;int&gt;,
+## #   longest_flat_spot &lt;int&gt;, coef_hurst &lt;dbl&gt;, stat_arch_lm &lt;dbl&gt;,
+## #   .fittedPC1 &lt;dbl&gt;, .fittedPC2 &lt;dbl&gt;, .fittedPC3 &lt;dbl&gt;, .fittedPC4 &lt;dbl&gt;,
+## #   .fittedPC5 &lt;dbl&gt;, .fittedPC6 &lt;dbl&gt;, .fittedPC7 &lt;dbl&gt;, .fittedPC8 &lt;dbl&gt;,
+## #   .fittedPC9 &lt;dbl&gt;, .fittedPC10 &lt;dbl&gt;, .fittedPC11 &lt;dbl&gt;, .fittedPC12 &lt;dbl&gt;,
+## #   .fittedPC13 &lt;dbl&gt;, .fittedPC14 &lt;dbl&gt;, .fittedPC15 &lt;dbl&gt;, .fittedPC16 &lt;dbl&gt;,
+## #   .fittedPC17 &lt;dbl&gt;, .fittedPC18 &lt;dbl&gt;, .fittedPC19 &lt;dbl&gt;, .fittedPC20 &lt;dbl&gt;,
+## #   .fittedPC21 &lt;dbl&gt;, .fittedPC22 &lt;dbl&gt;, .fittedPC23 &lt;dbl&gt;, .fittedPC24 &lt;dbl&gt;,
+## #   .fittedPC25 &lt;dbl&gt;, .fittedPC26 &lt;dbl&gt;, .fittedPC27 &lt;dbl&gt;, .fittedPC28 &lt;dbl&gt;,
+## #   .fittedPC29 &lt;dbl&gt;, .fittedPC30 &lt;dbl&gt;, .fittedPC31 &lt;dbl&gt;, .fittedPC32 &lt;dbl&gt;,
+## #   .fittedPC33 &lt;dbl&gt;, .fittedPC34 &lt;dbl&gt;, .fittedPC35 &lt;dbl&gt;, .fittedPC36 &lt;dbl&gt;
+```
 
 
 ---
 
-# Feature based visualization - Districts
-
-&lt;img src="PP_files/figure-html/unnamed-chunk-12-1.png" width="100%" height="100%" /&gt;
-
----
-
-# Spatial hierarchical structure
-
-&lt;img src="Figures/F10.JPG" width="80%" height="10%" style="display: block; margin: auto;" /&gt;
-
----
 # Feature based visualization 
 
-&lt;img src="PP_files/figure-html/unnamed-chunk-13-1.png" width="100%" height="100%" /&gt;
+&lt;img src="PP_files/figure-html/unnamed-chunk-16-1.png" width="100%" height="100%" /&gt;
 
 
 ---
 
-&lt;img src="PP_files/figure-html/unnamed-chunk-14-1.png" width="100%" height="100%" /&gt;
+# Feature based visualization 
+
+&lt;img src="PP_files/figure-html/unnamed-chunk-17-1.png" width="100%" height="100%" /&gt;
+
+---
+
+# Feature based visualization 
+
+&lt;img src="PP_files/figure-html/unnamed-chunk-18-1.png" width="100%" height="100%" /&gt;
+
+---
+
+# Temporal hierarchical structure
+
+&lt;img src="Figures/F11.JPG" width="100%" height="5%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Temporal hierarchical structure
+
+&lt;img src="PP_files/figure-html/figurechapter0005V2-1.png" width="100%" height="80%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Temporal hierarchical time series features
+
+
+```r
+library(tsfeatures)
+Temporal_DengueFeatures&lt;-tsfeatures(aggts_total)
+Temporal_DengueFeatures
+```
+
+```
+## # A tibble: 6 x 20
+##   frequency nperiods seasonal_period trend    spike linearity curvature   e_acf1
+##       &lt;dbl&gt;    &lt;dbl&gt;           &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+## 1        52        1              52 0.624  8.42e-6     10.4    -0.753   0.918  
+## 2        26        1              26 0.637  2.87e-5      7.42   -0.539   0.875  
+## 3        13        1              13 0.646  1.10e-4      5.30   -0.387   0.670  
+## 4         4        1               4 0.803  1.33e-4      3.31   -0.193  -0.00993
+## 5         2        1               2 0.858  1.20e-4      2.65   -0.130  -0.225  
+## 6         1        0               1 0.387  1.73e-2      1.86    0.0990 -0.312  
+## # ... with 12 more variables: e_acf10 &lt;dbl&gt;, seasonal_strength &lt;dbl&gt;,
+## #   peak &lt;dbl&gt;, trough &lt;dbl&gt;, entropy &lt;dbl&gt;, x_acf1 &lt;dbl&gt;, x_acf10 &lt;dbl&gt;,
+## #   diff1_acf1 &lt;dbl&gt;, diff1_acf10 &lt;dbl&gt;, diff2_acf1 &lt;dbl&gt;, diff2_acf10 &lt;dbl&gt;,
+## #   seas_acf1 &lt;dbl&gt;
+```
+
+---
+
+# Excluded features from PCA
+
+
+```r
+Temporal_DengueFeatures[,c(1,10,11,12,20)]
+```
+
+```
+## # A tibble: 6 x 5
+##   frequency seasonal_strength  peak trough seas_acf1
+##       &lt;dbl&gt;             &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;
+## 1        52             0.197    29     15    0.115 
+## 2        26             0.198    NA     NA    0.115 
+## 3        13             0.194    NA     NA    0.112 
+## 4         4             0.127    NA     NA    0.0848
+## 5         2             0.152    NA     NA    0.107 
+## 6         1            NA        NA     NA   NA
+```
+
+---
+
+
+```r
+pr&lt;-prcomp(Temporal_DengueFeatures[,-c(1,10,11,12,20)],scale=TRUE)
+```
+
+
+```
+##                         PC1         PC2          PC3         PC4          PC5
+## nperiods        -0.25015548 -0.28306798  0.299866965  0.01988237  0.007459788
+## seasonal_period -0.26393969  0.28696832  0.051139488  0.16303439 -0.244602267
+## trend           -0.09254692 -0.39342459  0.562003922  0.23531453 -0.135247539
+## spike            0.25145370  0.28050411 -0.297809299 -0.02335294 -0.001276768
+## linearity       -0.29083944  0.21011259 -0.031900922  0.10972732 -0.152059601
+## curvature        0.31192980 -0.10402723 -0.007253597 -0.04667976  0.091712803
+## e_acf1          -0.29732670  0.09201381 -0.284236582 -0.16433035  0.050736230
+## e_acf10         -0.27433076  0.25869783  0.090604802  0.14905812 -0.085168189
+## entropy          0.31200170 -0.06298042  0.041681702 -0.13890553 -0.444682399
+## x_acf1          -0.31472933 -0.05671347 -0.055218270 -0.04434709  0.304305957
+## x_acf10         -0.27623217  0.25043429 -0.028667800  0.20947811 -0.230628829
+## diff1_acf1      -0.26923753 -0.24242777 -0.247527226  0.13422669  0.156890037
+## diff1_acf10      0.23382294 -0.13827817 -0.299265752  0.84766649 -0.067098135
+## diff2_acf1      -0.15220880 -0.41990568 -0.356888142 -0.01091912  0.248299360
+## diff2_acf10      0.16547661  0.38675965  0.359233481  0.22770006  0.667949089
+##                         PC6
+## nperiods         0.05095289
+## seasonal_period  0.20850432
+## trend           -0.13106000
+## spike           -0.09833377
+## linearity       -0.24328398
+## curvature        0.19919255
+## e_acf1          -0.14702223
+## e_acf10         -0.01605061
+## entropy         -0.72184055
+## x_acf1          -0.08218608
+## x_acf10         -0.13862312
+## diff1_acf1      -0.27951201
+## diff1_acf10      0.06089076
+## diff2_acf1      -0.20758438
+## diff2_acf10     -0.36659915
+```
+
+---
+
+# Feature based visualization
+
+&lt;img src="PP_files/figure-html/unnamed-chunk-23-1.png" width="100%" height="100%" /&gt;
+
+---
+
+# Feature based visualization
+
+&lt;img src="PP_files/figure-html/unnamed-chunk-24-1.png" width="100%" height="100%" /&gt;
+
+---
+
+class: inverse center middle
+
+&lt;img src="Figures/FL1.JPG" width="100%" height="100%" style="display: block; margin: auto;" /&gt;
 
 ---
 
