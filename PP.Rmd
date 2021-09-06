@@ -42,6 +42,25 @@ style_duo_accent(
 
 class: inverse center middle
 
+# Introduction
+
+
+```{r ,echo=FALSE,fig.height=7,fig.width=16,out.width='100%',out.height='100%'}
+#library(ggplot2)
+#Year<-c(2010:2020)
+#Dengue<-c(25559,21079,23792,22213,34775,23010,32695,174025,51938,92467,35397)
+#df<-data.frame(Year,Dengue)
+#S1<-ggplot(df, aes(x=as.factor(Year), y=Dengue, fill=Dengue)) + 
+#  geom_bar(stat = "identity", color="#b2182b", fill="#b2182b")+ theme(legend.position = #'none')+
+#  labs(x="Year", y = "Dengue counts")
+#S1
+knitr::include_graphics("Figures/INT.JPG")
+```
+
+---
+
+class: inverse center middle
+
 ```{r figurechapter02, echo=FALSE, fig.align = 'center',message=FALSE, out.width = '100%', out.height = '100%',fig.height=5, fig.width=10}
 knitr::include_graphics("Figures/F1.JPG")
 ```
@@ -50,7 +69,7 @@ knitr::include_graphics("Figures/F1.JPG")
 
 class: inverse center middle
 
-# Formation of Data
+# Data
 
 ---
 
@@ -62,28 +81,6 @@ class: inverse center middle
 
 ```{r figurechapter03, echo=FALSE, fig.align = 'center',message=FALSE, out.width = '100%', out.height = '40%',fig.height=5, fig.width=10}
 knitr::include_graphics("Figures/F3.JPG")
-```
-
----
-
-```{r figurechapter04, echo=FALSE, fig.align = 'center',message=FALSE, out.width = '100%', out.height = '50%',fig.height=5, fig.width=10}
-knitr::include_graphics("Figures/F2.JPG")
-```
-
----
-
-# Storing data
-
-```{r figurechapter05, echo=FALSE, fig.align = 'center',message=FALSE, out.width = '50%', out.height = '10%',fig.height=5, fig.width=10}
-knitr::include_graphics("Figures/F5.JPG")
-```
-
----
-
-# Storing data
-
-```{r figurechapter06, echo=FALSE, fig.align = 'center',message=FALSE, out.width = '70%', out.height = '10%',fig.height=5, fig.width=10}
-knitr::include_graphics("Figures/F6.JPG")
 ```
 
 ---
@@ -153,7 +150,7 @@ library(patchwork)
 library(viridisLite)
 library(viridis)
 
-load("H:/ProgressPresentation/ProgressPresentation/data/FinalData.Rda")
+load("E:/MScProgressPresentation/MScProgressPresentation/data/AllData.Rda")
 
 D<-Data_Counts
 D
@@ -243,16 +240,35 @@ knitr::include_graphics("Figures/DP.JPG")
 # Time domain visualization-Districts
 
 ```{r ,echo=FALSE, out.width = '100%', out.height = '100%',fig.height=7, fig.width=14}
-HM2
+plotly::ggplotly(HM2)
+```
+
+---
+
+# Min-Max Transformation
+
+$$\frac{x_{i}-min(x)}{max(x)-min(x)}$$
+where $x=(x_{1},x_{2},\dots,x_{n})$.
+
+* Rescaling dengue counts of all districts onto 0-1 range.
+
+---
+
+# Time domain visualization-Districts
+
+
+```{r ,echo=FALSE, out.width = '100%', out.height = '80%',fig.height=7, fig.width=16}
+plotly::ggplotly(HMT2)
 ```
 
 ---
 
 # Feature-based visualization
 
-```{r figurechapter09FB, echo=FALSE, fig.align = 'center',message=FALSE, out.width = '100%', out.height = '40%',fig.height=5, fig.width=10}
-knitr::include_graphics("Figures/FB1.JPG")
+```{r figurechapter09FB, echo=FALSE, fig.align = 'center',message=FALSE, out.width = '100%', out.height = '100%',fig.height=9, fig.width=16}
+knitr::include_graphics("Figures/FES1.JPG")
 ```
+
 
 ---
 
@@ -298,8 +314,8 @@ Dengue_features
 
 # Feature-based visualization
 
-```{r figurechapter09FB2, echo=FALSE, fig.align = 'center',message=FALSE, out.width = '60%', out.height = '20%',fig.height=5, fig.width=10}
-knitr::include_graphics("Figures/FB3.JPG")
+```{r figurechapter09FB2, echo=FALSE, fig.align = 'center',message=FALSE, out.width = '90%', out.height = '70%',fig.height=9, fig.width=16}
+knitr::include_graphics("Figures/FES2.JPG")
 ```
 
 ---
@@ -325,122 +341,112 @@ pcs<-Dengue_features%>% dplyr::select(-c(1,2,31,33,35,37)) %>% prcomp(scale = TR
 pcs
 ```
 
-
 ---
 
-# Feature-based visualization 
+# Principal Component Analysis
 
-```{r ,echo=FALSE, out.width = '100%', out.height = '100%',fig.height=8, fig.width=16}
+
+```{r ,echo=FALSE}
 library(broom)
-library(ggrepel)
-A<-DataDengueTEST %>%fabletools::aggregate_key(Province/Districts,Counts=sum(Counts))
-DX<-A%>% features(Counts, feature_set(pkgs = "feasts"))
-DX$Districts<-c("Kandy","Matale","NuwaraEliya","Central","Ampara","Batticaloa","Kalmune","Trincomalee",
-                "Eastern","Anuradhapura","Polonnaruwa","NorthCentral","Kurunagala","Puttalam",    
-                "NorthWestern","Jaffna","Kilinochchi","Mannar","Mullaitivu","Vavuniya","Northern",
-                "Kegalle","Ratnapura","Sabaragamuwa","Galle","Hambanthota","Matara","Southern",
-                "Badulla","Monaragala","Uva","Colombo","Gampaha","Kalutara","Western","Sri Lanka")
-
-names(DX)[1] <- 'Level'
-DX$Level<-c("District","District","District","Province","District","District","District","District",
-            "Province","District","District","Province","District","District",    
-            "Province","District","District","District","District","District","Province",
-            "District","District","Province","District","District","District","Province",
-            "District","District","Province","District","District","District","Province","Country")
-
-pcsW <- DX %>%
-  dplyr::select(-c(1,2,31,33,35,37)) %>%
-  prcomp(scale = TRUE) %>%
-  augment(DX)
-
-
-FBVZW<-pcsW %>%
-  ggplot(aes(x = .fittedPC1, y = .fittedPC2, col = Level, label=Districts)) +
-  geom_point() +
-  theme(aspect.ratio = 1)+
-  geom_text_repel(aes(label=Districts), max.overlaps = Inf)+
-  labs(x="PC1", y = "PC2")
-
-FBVZW<-FBVZW+ theme(legend.position = "bottom",legend.box = "vertical")+scale_color_manual(values = c("#e41a1c","#6a3d9a","#ff7f00"))
-
-FBVZW1<-pcsW %>%
-  ggplot(aes(x = .fittedPC1, y = .fittedPC2, col = trend_strength, label=Districts)) +
-  geom_point(aes(size=trend_strength)) +
-  theme(aspect.ratio = 1)+
-  geom_text_repel(aes(label=Districts), max.overlaps = Inf)+
-  labs(x="PC1", y = "PC2",title = "Trend strength")+scale_color_viridis(option = "A")+
-  ggeasy::easy_center_title()+guides(size = FALSE)
-
-FBVZW1<-FBVZW1+ theme(legend.position = "bottom",legend.box = "vertical")+
-  labs(colour = NULL)
-
-(FBVZW|FBVZW1)
-
-```
-
-
----
-
-# Feature-based visualization 
-
-```{r ,echo=FALSE, out.width = '100%', out.height = '100%',fig.height=8, fig.width=16}
-
-FBVZW2<-pcsW %>%
-  ggplot(aes(x = .fittedPC1, y = .fittedPC2, col = seasonal_strength_year, label=Districts)) +
-  geom_point(aes(size=seasonal_strength_year)) +
-  theme(aspect.ratio = 1)+
-  geom_text_repel(aes(label=Districts), max.overlaps = Inf)+
-  labs(x="PC1", y = "PC2",title = "Seasonal strength")+scale_color_viridis(option = "A")+
-  ggeasy::easy_center_title()+guides(size = FALSE)
-
-FBVZW2<-FBVZW2+ theme(legend.position = "bottom",legend.box = "vertical")+
-  labs(colour = NULL)
-
-FBVZW3<-pcsW %>%
-  ggplot(aes(x = .fittedPC1, y = .fittedPC2, col = spectral_entropy, label=Districts)) +
-  geom_point(aes(size=spectral_entropy)) +
-  theme(aspect.ratio = 1)+
-  geom_text_repel(aes(label=Districts), max.overlaps = Inf)+
-  labs(x="PC1", y = "PC2",title = "Entropy")+scale_color_viridis(option = "A")+
-  ggeasy::easy_center_title()+guides(size = FALSE)
-
-FBVZW3<-FBVZW3+ theme(legend.position = "bottom",legend.box = "vertical")+
-  labs(colour = NULL)
-
-(FBVZW2|FBVZW3)
-
+pr<-prcomp(Dengue_features[,-c(1,2,31,33,35,37)],scale=TRUE)
+library(factoextra)
+fviz_eig(pr)
 ```
 
 ---
 
-# Feature-based visualization 
+class: inverse center middle
 
-```{r ,echo=FALSE, out.width = '100%', out.height = '100%',fig.height=8, fig.width=16}
+# Feature-based visualization
 
-FBVZW4<-pcsW %>%
-  ggplot(aes(x = .fittedPC1, y = .fittedPC2, col = acf1, label=Districts)) +
-  geom_point(aes(size=acf1)) +
-  theme(aspect.ratio = 1)+
-  geom_text_repel(aes(label=Districts), max.overlaps = Inf)+
-  labs(x="PC1", y = "PC2",title = "acf1")+scale_color_viridis(option = "A")+
-  ggeasy::easy_center_title()+guides(size = FALSE)
+---
 
-FBVZW4<-FBVZW4+ theme(legend.position = "bottom",legend.box = "vertical")+
-  labs(colour = NULL)
+```{r ,echo=FALSE, out.width = '100%', out.height = '100%',fig.height=9, fig.width=16}
+knitr::include_graphics("Figures/PP1.JPG")
+```
 
-FBVZW5<-pcsW %>%
-  ggplot(aes(x = .fittedPC1, y = .fittedPC2, col = n_crossing_points, label=Districts)) +
-  geom_point(aes(size=n_crossing_points)) +
-  theme(aspect.ratio = 1)+
-  geom_text_repel(aes(label=Districts), max.overlaps = Inf)+
-  labs(x="PC1", y = "PC2",title = "crossing_points")+scale_color_viridis(option = "A")+
-  ggeasy::easy_center_title()+guides(size = FALSE)
+---
 
-FBVZW5<-FBVZW5+ theme(legend.position = "bottom",legend.box = "vertical")+
-  labs(colour = NULL)
+```{r ,echo=FALSE, out.width = '100%', out.height = '100%',fig.height=9, fig.width=16}
+knitr::include_graphics("Figures/PP2.JPG")
+```
 
-(FBVZW4|FBVZW5)
+---
 
+```{r ,echo=FALSE, out.width = '100%', out.height = '100%',fig.height=9, fig.width=16}
+knitr::include_graphics("Figures/PP3.JPG")
+```
+
+---
+
+```{r ,echo=FALSE, out.width = '100%', out.height = '100%',fig.height=9, fig.width=16}
+knitr::include_graphics("Figures/PP4.JPG")
+```
+
+---
+
+```{r ,echo=FALSE, out.width = '100%', out.height = '100%',fig.height=9, fig.width=16}
+knitr::include_graphics("Figures/PP5.JPG")
+```
+
+---
+
+```{r ,echo=FALSE, out.width = '100%', out.height = '100%',fig.height=9, fig.width=16}
+knitr::include_graphics("Figures/PP6.JPG")
+```
+
+---
+
+```{r ,echo=FALSE, out.width = '100%', out.height = '100%',fig.height=9, fig.width=16}
+knitr::include_graphics("Figures/PP7.JPG")
+```
+
+---
+
+```{r ,echo=FALSE, out.width = '100%', out.height = '100%',fig.height=9, fig.width=16}
+knitr::include_graphics("Figures/PP8.JPG")
+```
+
+---
+
+```{r ,echo=FALSE, out.width = '100%', out.height = '100%',fig.height=9, fig.width=16}
+knitr::include_graphics("Figures/PP9.JPG")
+```
+
+---
+
+```{r ,echo=FALSE, out.width = '100%', out.height = '100%',fig.height=9, fig.width=16}
+knitr::include_graphics("Figures/PP10.JPG")
+```
+
+---
+
+```{r ,echo=FALSE, out.width = '100%', out.height = '100%',fig.height=9, fig.width=16}
+knitr::include_graphics("Figures/PP11.JPG")
+```
+
+---
+
+```{r ,echo=FALSE, out.width = '100%', out.height = '100%',fig.height=9, fig.width=16}
+knitr::include_graphics("Figures/PP12.JPG")
+```
+
+---
+
+```{r ,echo=FALSE, out.width = '100%', out.height = '100%',fig.height=9, fig.width=16}
+knitr::include_graphics("Figures/PP13.JPG")
+```
+
+---
+
+```{r ,echo=FALSE, out.width = '100%', out.height = '100%',fig.height=9, fig.width=16}
+knitr::include_graphics("Figures/PP14.JPG")
+```
+
+---
+
+```{r ,echo=FALSE, out.width = '100%', out.height = '100%',fig.height=9, fig.width=16}
+knitr::include_graphics("Figures/PP15.JPG")
 ```
 
 ---
@@ -489,21 +495,97 @@ pr$rotation
 
 ---
 
-# Feature-based visualization
+# Principal Component Analysis
 
-```{r ,echo=FALSE, out.width = '100%', out.height = '100%',fig.height=8, fig.width=16}
-(TEMFBV|TEMFBV1)
+```{r ,echo=FALSE}
+pr1<-prcomp(Temporal_DengueFeatures[,-c(1,10,11,12,20)],scale=TRUE)
+fviz_eig(pr1)
 ```
 
 ---
 
-# Feature-based visualization
-
-```{r ,echo=FALSE, out.width = '100%', out.height = '100%',fig.height=8, fig.width=16}
-(TEMFBV2|TEMFBV3)
+```{r ,echo=FALSE, out.width = '100%', out.height = '100%',fig.height=9, fig.width=16}
+knitr::include_graphics("Figures/PP16.JPG")
 ```
 
 ---
+
+```{r ,echo=FALSE, out.width = '100%', out.height = '100%',fig.height=9, fig.width=16}
+knitr::include_graphics("Figures/PP17.JPG")
+```
+
+---
+
+# Change point analysis
+
+* Change point detection is the process of identifying the time point, in which properties of data suddenly change.
+
+.pull-left[
+#### Changes in mean 
+
+```{r ,echo=FALSE}
+x=1:500
+z=c(rnorm(100,1,sd=0.5),rnorm(150,0,sd=0.5),rnorm(200,2,sd=0.5),rnorm(50,0.5,sd=0.5))
+plot(x,z,type='l',xlab='',ylab='',col='green')
+lines(x=1:100,y=rep(1,100),col='red',lwd=3)
+lines(x=101:250,y=rep(0,150),col='red',lwd=3)
+lines(x=251:450,y=rep(2,200),col='red',lwd=3)
+lines(x=451:500,y=rep(0.5,50),col='red',lwd=3)
+```
+
+]
+.pull-right[
+#### Changes in variance
+
+```{r ,echo=FALSE}
+x=1:500
+z=c(rnorm(100,0,sd=0.1),rnorm(150,0,sd=0.7),rnorm(200,0,sd=0.25),rnorm(50,0,sd=1))
+plot(x,z,type='l',xlab='',ylab='',col='green')
+```
+
+]
+
+---
+
+# Change point model for changes in mean
+
+For data $z_{1}, z_{2},\dots, z_{n}$, if change points exist at $\tau_{1}, \tau_{2}, \dots, \tau_{k}$, then 
+
+$$z_{t}=
+    \begin{cases}
+    \mu_{1} &   1\leq t \leq \tau_1 \\ 
+    \mu_2 & \tau_1 < t \leq \tau_2 \\
+    \vdots & \vdots \\
+    \mu_{k+1} & \tau_k < t \leq \tau_{k+1}=n
+    \end{cases}$$
+
+
+---
+
+```{r ,echo=FALSE, out.width = '100%', out.height = '100%',fig.height=9, fig.width=16}
+knitr::include_graphics("Figures/PP18.JPG")
+```
+
+---
+
+```{r ,echo=FALSE, out.width = '100%', out.height = '100%',fig.height=9, fig.width=16}
+knitr::include_graphics("Figures/PP19.JPG")
+```
+
+---
+
+```{r ,echo=FALSE, out.width = '100%', out.height = '100%',fig.height=9, fig.width=16}
+knitr::include_graphics("Figures/PP20.JPG")
+```
+
+---
+
+```{r ,echo=FALSE, out.width = '100%', out.height = '100%',fig.height=9, fig.width=16}
+knitr::include_graphics("Figures/PP21.JPG")
+```
+
+---
+
 
 class: inverse center middle
 
@@ -755,18 +837,16 @@ ac_TRAIN_MASE
 
 ---
 
-### MASE values for Training set: 2006-2019 and Test set: 2020 weekly data
+# Spatial hierarchical forecasting
 
-```{r ,echo=FALSE, out.width = '75%', out.height = '40%',fig.height=7, fig.width=12,fig.align='center'}
-knitr::include_graphics("Figures/HTS_Results.JPG")
+```{r ,echo=FALSE, out.width = '100%', out.height = '90%',fig.height=8, fig.width=16,fig.align='center'}
+knitr::include_graphics("Figures/SETS.JPG")
 ```
 
 ---
 
-# Spatial hierarchical forecasting
-
-```{r ,echo=FALSE, out.width = '70%', out.height = '40%',fig.height=7, fig.width=14,fig.align='center'}
-knitr::include_graphics("Figures/SETS.JPG")
+```{r ,echo=FALSE, out.width = '100%', out.height = '100%',fig.height=9, fig.width=16}
+knitr::include_graphics("Figures/TR.JPG")
 ```
 
 ---
@@ -792,43 +872,6 @@ knitr::include_graphics("Figures/MAP2.JPG")
 ```{r ,echo=FALSE, out.width = '42%', out.height = '10%',fig.height=7, fig.width=14,fig.align='center'}
 knitr::include_graphics("Figures/MAP3.JPG")
 ```
-
----
-
-# Visualization of model performance-Weekly series
-
-```{r ,echo=FALSE}
-library(readxl)
-library(broom)
-Weekly_20AD<- read_excel("C:/Users/USER/Desktop/Book1.xlsx")
-Weekly_20AD<-Weekly_20AD[,-c(1)]
-
-pcsWk20AD <- Weekly_20AD %>%
-  dplyr::select(-c(1,2)) %>%
-  prcomp(scale = TRUE) %>%
-  augment(Weekly_20AD)
-
-Method<-c("HS","AVG","HS","ETS","HS","SNAIVE",rep("AVG",3),rep("HS",3),"AVG",rep("HS",2),
-          rep("AVG",3),rep("HS",2),rep("AVG",2),rep("HS",1),rep("AVG",2),rep("HS",2),
-          rep("AVG",2),rep("HS",6),rep("AVG",1),rep("HS",5),"SNAIVE",rep("HS",2),"SNAIVE",rep("HS",3),rep("SNAIVE",3),rep("AVG",2),
-          rep("HS",3),rep("AVG",1),rep("HS",3),rep("AVG",1),rep("HS",10),rep("AVG",1),"SNAIVE",
-          rep("HS",2),"SNAIVE","HS","AVG",rep("HS",2),rep("AVG",2),rep("HS",5),"SNAIVE","AVG",
-          "HS","NAIVE","HS","SNAIVE",rep("HS",8),"NAIVE",rep("HS",6),rep("HS",15),"SNAIVE",
-          "AVG",rep("NAIVE",2),"HS","SNAIVE",rep("HS",3),"AVG",rep("HS",2),"ETS",rep("HS",8))
-
-pcsWk20AD$Level<-Method
-
-FBVZWW1MAD<-pcsWk20AD %>%
-  ggplot(aes(x = .fittedPC1, y = .fittedPC2, col = Level,label=Districts)) +
-  geom_point(position=position_jitter(h=0.1, w=0.1),size=2) +
-  theme(aspect.ratio = 1)+
-  labs(x="PC1", y = "PC2")
-FBVZWW1MAD<-FBVZWW1MAD+ theme(legend.position = "right",legend.box = "vertical")+
-  labs(colour = NULL)+scale_color_manual(values = c("#e7298a","#e6ab02","#1b9e77","#762a83","#543005"))
-FBVZWW1MAD
-
-```
-
 
 ---
 
